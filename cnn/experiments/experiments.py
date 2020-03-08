@@ -33,7 +33,9 @@ def save_architecture(architecture, name):
         json.dump(architecture, file)
 
 
-def create_logging_file(name=r'outputs/experiment_results.csv'):
+def create_logging_file(name=r'../results/experiment_results.csv'):
+    if os.path.isdir(r'../results'):
+        os.mkdir(r'../results')
     fields = ['model_name',
               'F_u_f1', 'F_u_PA', 'F_u_UA',
               'M_c_f1', 'M_c_PA', 'M_c_UA',

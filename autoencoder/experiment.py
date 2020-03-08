@@ -100,7 +100,9 @@ def one_hot_encode_y(y_tr, y_te):
     return train_Y_one_hot, test_Y_one_hot
 
 
-def create_logging_file(name=r'outputs/experiment_results.csv'):
+def create_logging_file(name=r'results/experiment_results.csv'):
+    if os.path.isdir(r'results/'):
+        os.mkdir(r'results/')
     fields = ['model_name',
               'F_u_f1', 'F_u_PA', 'F_u_UA',
               'M_c_f1', 'M_c_PA', 'M_c_UA',

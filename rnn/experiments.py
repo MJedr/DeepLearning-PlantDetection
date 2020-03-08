@@ -13,13 +13,21 @@ from sklearn.model_selection import train_test_split
 import rnn.architectures as architectures
 
 
+reduce_lr = reduceLR()
+adam = Adam(lr=0.01, clipnorm=1.)
+rms_prop = RMSprop(rho=0.9)
+sgd = SGD(lr=0.001, decay=1e-6, momentum=0.9, nesterov=True)
+
+
 def reduceLR(patience=5, min_lr=0.000001):
     reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.6,
                                   patience=2, min_lr=min_lr)
     return reduce_lr
 
 
-def create_logging_file(name=r'outputs/experiment_results.csv'):
+def create_logging_file(name=r'results/experiment_results.csv'):
+    if os.path.isdir(r'results'):
+        os.mkdir(r'results')
     fields = ['model_name',
               'F_u_f1', 'F_u_PA', 'F_u_UA',
               'M_c_f1', 'M_c_PA', 'M_c_UA',
@@ -32,27 +40,6 @@ def create_logging_file(name=r'outputs/experiment_results.csv'):
         csvfile.close()
 
     return
-
-
-dataset = pd.read_pickle(r'..\..\outputs\dataset_train_k5.pickle')
-
-if len(dataset.columns) > 5:
-    dataset = dataset.iloc[:, 1:]
-
-dataset.columns = ['x', 'y', 'ekstrakcja', 'klasa', 'indeks']
-
-classes = {'Cienie': 0, 'Drogi': 1,
-           'Drzewa iglaste': 2, 'Drzewa lisciaste': 3,
-           'Dzewa iglaste': 2, 'Fil_ulm': 4,
-           'Mol_cae': 5, 'Pola uprawne': 6,
-           'X_niegatunek': 7, 'Zabudowa': 8}
-
-dataset['klasa_id'] = dataset.klasa.map(classes)
-
-reduce_lr = reduceLR()
-adam = Adam(lr=0.01, clipnorm=1.)
-rms_prop = RMSprop(rho=0.9)
-sgd = SGD(lr=0.001, decay=1e-6, momentum=0.9, nesterov=True)
 
 
 def preprocess_data(dataset, x_col_name, y_col_name, polygon_ind_col):

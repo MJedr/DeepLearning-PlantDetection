@@ -14,6 +14,6 @@ classes = {'Cienie': 0, 'Drogi': 1,
 			'X_niegatunek': 7, 'Zabudowa': 8}
 dataset['klasa_id'] = dataset.klasa.map(classes)
 
-ExperimentArchitecturesRegularizationActivation(20, dataset, 'rnn_architecture_regularization.csv')
-ExperimentArchitectureRecurrentRegularization(20, dataset, 'rnn_architecture_regularization_recurrent.csv')
-ExperimentArchitectureRecurrentDropout(20, dataset, 'rnn_architecture_dropout_recurrent.csv')
+ExperimentArchitecturesRegularizationActivation(20, dataset, r'results/rnn_architecture_regularization.csv')
+ExperimentArchitectureRecurrentRegularization(20, dataset, r'results/rnn_architecture_regularization_recurrent.csv')
+ExperimentArchitectureRecurrentDropout(20, dataset, r'results/rnn_architecture_dropout_recurrent.csv')

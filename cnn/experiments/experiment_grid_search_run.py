@@ -1,6 +1,6 @@
 import pandas as pd
 
-from cnn.experiment_grid_search import ExperimentGridSearch
+from cnn.experiments.experiment_grid_search import ExperimentGridSearch
 
 dataset = pd.read_pickle(r'..\outputs\dataset_train.pickle')
 if len(dataset.columns) > 5:
@@ -13,4 +13,4 @@ classes = {'Cienie': 0, 'Drogi': 1,
 			'X_niegatunek': 7, 'Zabudowa': 8}
 dataset['klasa_id'] = dataset.klasa.map(classes)
 
-ExperimentGridSearch(20, dataset, 'grid_search.csv')
+ExperimentGridSearch(20, dataset, r'../results/grid_search.csv')

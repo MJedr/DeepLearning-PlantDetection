@@ -1,16 +1,14 @@
-from cnn.architectures import architecture_nconv
 from cnn.architectures import architecture_pool, architecture_regularization1
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from cnn_callbacks import reduceLR, earlyStop
-# from keras.callbacks.tensorboard_v1 import TensorBoard
 import csv
 import os
 import datetime
 from sklearn.metrics import classification_report, confusion_matrix
 from keras.optimizers import adam
-from plot_history import plot_history
+from visualisations.plot_history import plot_history
 import random
 import json
 
@@ -42,7 +40,9 @@ def save_architecture(architecture, name):
         json.dump(architecture, file)
 
 
-def create_logging_file(name=r'outputs/experiment_results.csv'):
+def create_logging_file(name=r'../results/experiment_results.csv'):
+    if os.path.isdir(r'../results'):
+        os.mkdir(r'../results')
     fields = ['model_name',
               'F_u_f1', 'F_u_PA', 'F_u_UA',
               'M_c_f1', 'M_c_PA', 'M_c_UA',
@@ -91,13 +91,19 @@ def ExperimentGridSearch(n_iterations, dataset, logging_file, data_type, save=Tr
     if not os.path.isfile(logging_file):
         print('logging file created')
         create_logging_file(logging_file)
+    if not os.path.isdir(r'../results/architecture/'):
+        os.mkdir(r'../results/architecture/')
+    if not os.path.isdir(r'../models/'):
+        os.mkdir(r'../results/models/')
+    if not os.path.isdir(r"../results/confusion_matrix/"):
+        os.mkdir(r"../results/confusion_matrix/")
     X_tr, X_te, y_tr, y_te = preprocess_data(dataset, 'ekstrakcja', 'klasa_id', 'indeks')
 
     for u in range(2):
         model_architecture = get_model_params(param_dict)
         print(model_architecture)
         model_name = 'model_' + str(u + 17) + data_type
-        save_architecture(model_architecture, 'architecture//' + model_name)
+        save_architecture(model_architecture, r'../results/architecture/' + model_name)
         for _iteration in range(n_iterations):
             model_name_iteration = model_name + str(_iteration)
             start_time = datetime.datetime.now()
@@ -123,7 +129,7 @@ def ExperimentGridSearch(n_iterations, dataset, logging_file, data_type, save=Tr
             if save:
                 cm = pd.DataFrame(confusion_matrix(y_te, y_pred))
                 prefix = str(datetime.datetime.now()).replace(":", "-").replace(" ", "-").replace(".", "-")
-                cm.to_csv(r'confusion_matrix_k6/cm_' + model_name_iteration + prefix + '.csv')
+                cm.to_csv(f""""..//results//confusion_matrix//cm_{model_name_iteration}_{prefix}.csv""")
 
                 with open(logging_file, 'a', newline='') as f:
                     writer = csv.writer(f)
@@ -138,10 +144,10 @@ def ExperimentGridSearch(n_iterations, dataset, logging_file, data_type, save=Tr
 
                 # serialize model to JSON
                 model_json = model.to_json()
-                with open("models/{0}_{1}.json".format(model_name_iteration, data_type), "w") as json_file:
+                with open(r"../models/{0}_{1}.json".format(model_name_iteration, data_type), "w") as json_file:
                     json_file.write(model_json)
                 # serialize weights to HDF5
-                model_1.save_weights("models/{0}_{1}.h5".format(model_name_iteration, data_type))
+                model_1.save_weights(r"../results/models/{0}_{1}.h5".format(model_name_iteration, data_type))
                 print("Saved model to disk")
                 model_1 = None
                 model_hist = None

@@ -13,4 +13,4 @@ classes = {'Cienie': 0, 'Drogi': 1,
 			'X_niegatunek': 7, 'Zabudowa': 8}
 dataset['klasa_id'] = dataset.klasa.map(classes)
 
-ExperimentActivation(20, dataset, 'activation_and_initializers.csv')
+ExperimentActivation(20, dataset, r'../results/activation_and_initializers.csv')

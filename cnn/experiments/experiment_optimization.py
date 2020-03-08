@@ -1,6 +1,6 @@
 import pandas as pd
 
-from cnn.experiments import ExperimentOptimization
+from cnn.experiments.experiments import ExperimentOptimization
 
 dataset = pd.read_pickle(r'..\outputs\dataset_train.pickle')
 if len(dataset.columns) > 5:
@@ -13,4 +13,4 @@ classes = {'Cienie': 0, 'Drogi': 1,
 			'X_niegatunek': 7, 'Zabudowa': 8}
 dataset['klasa_id'] = dataset.klasa.map(classes)
 
-ExperimentOptimization(20, dataset, 'optimiazation.csv')
+ExperimentOptimization(20, dataset, r'../results/optimiazation.csv')

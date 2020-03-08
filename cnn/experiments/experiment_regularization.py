@@ -1,6 +1,6 @@
 import pandas as pd
 
-from cnn.experiments import ExperimentRegularization
+from cnn.experiments.experiments import ExperimentRegularization
 
 dataset = pd.read_pickle(r'..\outputs\dataset_train.pickle')
 if len(dataset.columns) > 5:
@@ -13,4 +13,4 @@ classes = {'Cienie': 0, 'Drogi': 1,
 			'X_niegatunek': 7, 'Zabudowa': 8}
 dataset['klasa_id'] = dataset.klasa.map(classes)
 
-ExperimentRegularization(20, dataset, 'regularization.csv')
+ExperimentRegularization(20, dataset, r'../results/regularization.csv')
