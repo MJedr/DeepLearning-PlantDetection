@@ -1,0 +1,16 @@
+GDAL==2.2.4
+gdal-build-debug==0.1.0
+Keras==2.2.4
+Keras-Applications==1.0.7
+Keras-Preprocessing==1.0.9
+matplotlib==3.0.3
+numpy==1.16.3
+pandas==0.24.1
+scipy==1.1.0
+seaborn==0.9.0
+sklearn==0.0
+sklearn-evaluation==0.4
+tensorboard==1.13.1
+tensorflow==1.13.1
+tensorflow-estimator==1.13.0
+tensorflow-tensorboard==0.1.8
