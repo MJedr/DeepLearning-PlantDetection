@@ -11,6 +11,6 @@ seaborn==0.9.0
 sklearn==0.0
 sklearn-evaluation==0.4
 tensorboard==1.13.1
-tensorflow==1.13.1
+tensorflow>=1.13.1
 tensorflow-estimator==1.13.0
 tensorflow-tensorboard==0.1.8
