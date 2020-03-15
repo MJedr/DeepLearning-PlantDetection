@@ -11,7 +11,7 @@ mask_raster = r"outputs\maskaKR1k5.tiff"
 # filenames for extracted values
 
 export_csv = r"outputs\extracted_k5.csv"
-export_pickle = r"outputs\extracted_przyklad_k5.pickle"
+export_pickle = Config.dataset_train
 
 class_names = get_class_names(data_shp)
 print("classes to be classified - ", class_names)
